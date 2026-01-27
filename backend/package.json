@@ -1,0 +1,48 @@
+{
+  "name": "snap-journal-be",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/purnomoht17/snap-journal-be#readme",
+  "bugs": {
+    "url": "https://github.com/purnomoht17/snap-journal-be/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purnomoht17/snap-journal-be.git"
+  },
+  "license": "ISC",
+  "author": "Heru Purnomo",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "nodemon src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.13.2",
+    "cors": "^2.8.6",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "firebase-admin": "^13.6.0",
+    "i18next": "^25.8.0",
+    "i18next-fs-backend": "^2.6.1",
+    "i18next-http-middleware": "^3.9.2",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^7.0.12",
+    "sharp": "^0.34.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^13.0.0",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
