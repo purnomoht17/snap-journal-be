@@ -11,7 +11,7 @@ export const limiter = rateLimit({
 
 const whitelist = [
     "http://localhost:5173", 
-    "http://localhost:3000",
+    "http://localhost:3000"
 ];
 
 export const corsOptions = cors({

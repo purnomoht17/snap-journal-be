@@ -1,7 +1,11 @@
 import Joi from "joi";
 
 const updateUserValidation = Joi.object({
-    name: Joi.string().max(100).required()
+    name: Joi.string().min(5).max(100).required().messages({
+        'string.base': 'Nama harus berupa teks',
+        'string.min': 'Nama minimal 5 karakter',
+        'string.max': 'Nama maksimal 100 karakter',
+        'any.required': 'Nama wajib diisi'}),
 });
 
 const updatePasswordValidation = Joi.object({
