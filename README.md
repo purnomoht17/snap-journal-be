@@ -80,7 +80,7 @@ JWT_SECRET=rahasia_jwt_anda_disini
 ```ini
 FIREBASE_CREDENTIALS=./service-account-key.json
 FIREBASE_CLIENT_API_KEY=your_firebase_web_api_key
-GCS_BUCKET_NAME=your-gcs-bucket-name
+FIREBASE_BUCKET_NAME=your-firebase-bucket-name
 ```
 
 **Catatan:**
