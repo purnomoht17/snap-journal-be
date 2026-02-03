@@ -1,0 +1,24 @@
+# --- 1. Dependencies & System (WAJIB) ---
+**/node_modules/
+.DS_Store
+._*
+
+# --- 2. Secrets & Keys (SANGAT KRUSIAL) ---
+# Jangan sampai ini ter-upload ke GitHub!
+backend/service-account-key.json
+backend/.env
+.env
+
+# --- 3. Logs & Debugging ---
+*.log
+backend/firebase-debug.log
+backend/functions/firebase-debug.log
+
+# --- 4. Firebase Cache ---
+# Folder ini dibuat otomatis saat deploy/emulator
+.firebase/
+backend/.firebase/
+backend/functions/.firebase/
+
+# --- 5. Coverage (Jika ada testing nanti) ---
+coverage/

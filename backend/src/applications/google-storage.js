@@ -1,13 +1,7 @@
-import { Storage } from "@google-cloud/storage";
-import path from "path";
+import { bucket } from "./firebase.js"; 
 import { ResponseError } from "../error/response-error.js";
 
-const storage = new Storage({
-    keyFilename: path.resolve(process.env.FIREBASE_CREDENTIALS), 
-});
-
-const bucketName = process.env.FIREBASE_BUCKET_NAME;
-const bucket = storage.bucket(bucketName);
+const bucketName = process.env.GOOGLE_BUCKET_NAME;
 
 const uploadToGCS = (file, folder) => {
     return new Promise((resolve, reject) => {
@@ -16,8 +10,7 @@ const uploadToGCS = (file, folder) => {
         }
 
         const fileName = `${Date.now()}-${file.originalname.replace(/\s+/g, '-')}`;
-        const destination = `${folder}/${fileName}`;
-        
+        const destination = `${folder}/${fileName}`;        
         const blob = bucket.file(destination);
         
         const blobStream = blob.createWriteStream({
@@ -34,13 +27,16 @@ const uploadToGCS = (file, folder) => {
 
         blobStream.on('finish', async () => {            
             try {
-                await blob.makePublic(); 
-                
+                try {
+                    await blob.makePublic(); 
+                } catch (publicError) {
+                    console.warn("Info: Gagal set public permission (Mungkin kebijakan Bucket). File tetap tersimpan aman.");
+                }                
                 const publicUrl = `https://storage.googleapis.com/${bucketName}/${destination}`;
                 resolve(publicUrl);
             } catch (error) {
-                console.error("Gagal set public permission:", error);
-                reject(new ResponseError(500, `Gagal setting permission file: ${error.message}`));
+                console.error("Error post-upload:", error);            
+                reject(new ResponseError(500, `Gagal finalize file: ${error.message}`));
             }
         });
 
@@ -76,8 +72,6 @@ const getGcsUrl = (path) => {
     if (!path) return null;
 
     const cleanPath = path.replace(/^\/+/, '');
-    const bucketName = process.env.FIREBASE_BUCKET_NAME; 
-
     return `https://storage.googleapis.com/${bucketName}/${cleanPath}`;
 };
 

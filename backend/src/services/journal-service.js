@@ -187,10 +187,16 @@ const updateJournal = async (user, request, photoFile, journalId) => {
     const now = new Date().toISOString();
     
     const updates = {
-        title: request.title,
-        note: request.note,
         updated_at: now
     };
+
+    if (request.title !== undefined) {
+        updates.title = request.title;
+    }
+
+    if (request.note !== undefined) {
+        updates.note = request.note;
+    }
 
     if (photoFile) {
         try {

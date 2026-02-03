@@ -5,25 +5,41 @@ import { logger } from "./logging.js";
 
 dotenv.config();
 
-const require = createRequire(import.meta.url);
-let serviceAccount;
+let firebaseApp;
 
-try {
-    serviceAccount = require('../../service-account-key.json');
-} catch (error) {
-    logger.error("Gagal memuat service-account-key.json. Pastikan file ada di root folder.");
-    process.exit(1);
+const isProduction = process.env.NODE_ENV === 'production' || process.env.K_SERVICE;
+
+if (isProduction) {
+    // --- MODE PRODUCTION (Cloud Functions / Cloud Run) ---
+    firebaseApp = admin.initializeApp({
+        credential: admin.credential.applicationDefault(),
+        storageBucket: process.env.GOOGLE_BUCKET_NAME
+    });
+    logger.info("🔥 Firebase Init: Production Mode (ADC)");
+
+} else {
+    // --- MODE DEVELOPMENT (Localhost) ---
+    try {
+        const require = createRequire(import.meta.url);
+        const serviceAccount = require('../../service-account-key.json');
+        
+        firebaseApp = admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount),
+            storageBucket: process.env.GOOGLE_BUCKET_NAME
+        });
+        logger.info("💻 Firebase Init: Local Development Mode");
+    } catch (error) {
+        console.warn("⚠️ service-account-key.json tidak ditemukan. Mencoba menggunakan ADC Lokal...");
+        
+        firebaseApp = admin.initializeApp({
+            credential: admin.credential.applicationDefault(),
+            storageBucket: process.env.GOOGLE_BUCKET_NAME
+        });
+    }
 }
 
-const firebaseApp = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: process.env.FIREBASE_BUCKET_NAME
-});
-
 const db = admin.firestore();
-const storage = admin.storage();
+const bucket = admin.storage().bucket(); 
 const messaging = admin.messaging();
 
-logger.info("Firebase Connected Successfully");
-
-export { admin, db, storage, messaging, firebaseApp };
+export { admin, db, bucket, messaging, firebaseApp };

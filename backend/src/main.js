@@ -3,7 +3,7 @@ import {logger} from "./applications/logging.js";
 import cron from "node-cron";
 import { checkInactiveUsers } from "./jobs/checkInactiveUsers.js";
 
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
 web.listen(PORT, () => {
     logger.info("App start");

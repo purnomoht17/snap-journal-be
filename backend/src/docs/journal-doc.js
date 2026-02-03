@@ -30,14 +30,14 @@
  *               note:
  *                 type: string
  *                 example: "Hari ini banyak pikiran, tapi aku bertahan."
- *               video:
- *                 type: string
- *                 format: binary
- *                 description: Video ekspresi (.webm, max 50MB)
  *               photo:
  *                 type: string
  *                 format: binary
  *                 description: Foto kenangan (.jpg/.png, max 50MB)
+ *               video:
+ *                 type: string
+ *                 format: binary
+ *                 description: Video ekspresi (.webm, max 50MB)
  *     responses:
  *       201:
  *         description: Jurnal berhasil dibuat

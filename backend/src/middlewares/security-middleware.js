@@ -2,8 +2,8 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 
 export const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, 
-    max: 100, 
+    windowMs: 10 * 60 * 1000, 
+    max: 20, 
     standardHeaders: true, 
     legacyHeaders: false, 
     message: { errors: "Terlalu banyak request, silakan coba lagi nanti." }
@@ -11,7 +11,8 @@ export const limiter = rateLimit({
 
 const whitelist = [
     "http://localhost:5173", 
-    "http://localhost:3000"
+    "http://localhost:3001",
+    "https://api-wwv42552ua-et.a.run.app"
 ];
 
 export const corsOptions = cors({

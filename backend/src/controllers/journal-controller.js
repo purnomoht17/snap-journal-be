@@ -1,11 +1,15 @@
 import journalService from "../services/journal-service.js";
+import { parseMultipart } from "../utils/multipart-parser.js";
 
 const createJournal = async (req, res, next) => {
     try {
         const user = req.user;
-        const request = req.body;
-        const videoFile = (req.files && req.files['video']) ? req.files['video'][0] : null;
-        const photoFile = (req.files && req.files['photo']) ? req.files['photo'][0] : null;
+
+        const parsed = await parseMultipart(req);
+        const request = parsed.fields;
+        const files = parsed.files;
+        const videoFile = files.find(f => f.fieldname === 'video') || null;
+        const photoFile = files.find(f => f.fieldname === 'photo') || null;
 
         const result = await journalService.createJournal(user, request, videoFile, photoFile);
 
@@ -42,9 +46,12 @@ const getDetailJournal = async (req, res, next) => {
 const updateJournal = async (req, res, next) => {
     try {
         const user = req.user;
-        const request = req.body;
         const id = req.params.id;
-        const photoFile = req.file || (req.files && req.files['photo'] ? req.files['photo'][0] : null);
+        const parsed = await parseMultipart(req);
+        const request = parsed.fields;
+        const files = parsed.files;
+
+        const photoFile = files.find(f => f.fieldname === 'photo') || null;
 
         const result = await journalService.updateJournal(user, request, photoFile, id);
 

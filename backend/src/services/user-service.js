@@ -3,7 +3,7 @@ import { admin } from "../applications/firebase.js";
 import { ResponseError } from "../error/response-error.js";
 import axios from "axios";
 
-const FIREBASE_API_KEY = process.env.FIREBASE_CLIENT_API_KEY;
+const GOOGLE_API_KEY = process.env.GOOGLE_CLIENT_API_KEY;
 
 /**
  * Mengupdate profil user (PUT /settings/profile)
@@ -52,7 +52,7 @@ const updatePassword = async (user, request) => {
     }
     const email = userDoc.data().email;
 
-    const verifyUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
+    const verifyUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${GOOGLE_API_KEY}`;
 
     try {
         await axios.post(verifyUrl, {

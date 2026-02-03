@@ -69,25 +69,24 @@ Buka file `.env` yang baru saja dibuat, lalu isi konfigurasi berikut:
 ### 1. Server Config
 
 ```ini
-PORT=3000
 NODE_ENV=development
-APP_URL=http://localhost:3000
+APP_URL=http://localhost:3001
 JWT_SECRET=rahasia_jwt_anda_disini
 ```
 
 ### 2. Google Cloud & Firebase (Admin SDK)
 
 ```ini
-FIREBASE_CREDENTIALS=./service-account-key.json
-FIREBASE_CLIENT_API_KEY=your_firebase_web_api_key
-FIREBASE_BUCKET_NAME=your-firebase-bucket-name
+GOOGLE_CREDENTIALS=./service-account-key.json
+GOOGLE_CLIENT_API_KEY=your_firebase_web_api_key
+GOOGLE_BUCKET_NAME=your-firebase-bucket-name
 ```
 
 **Catatan:**
 
-* **FIREBASE_CREDENTIALS:** Unduh dari Firebase Console > Project Settings > Service Accounts > Generate new private key. Lalu letakkan di directory root projek.
-* **FIREBASE_CLIENT_API_KEY:** Ditemukan di Firebase Console > Project Settings > General > Your apps (Web App).
-* **FIREBASE_BUCKET_NAME:** Salin dari menu Storage di Firebase Console.
+* **GOOGLE_CREDENTIALS:** Unduh dari Firebase Console > Project Settings > Service Accounts > Generate new private key. Lalu letakkan di directory root projek.
+* **GOOGLE_CLIENT_API_KEY:** Ditemukan di Firebase Console > Project Settings > General > Your apps (Web App).
+* **GOOGLE_BUCKET_NAME:** Salin dari menu Storage di Firebase Console.
 
 ### 3. Email Service (SMTP)
 

@@ -5,7 +5,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import emailService from "./email-service.js";
 
-const FIREBASE_API_KEY = process.env.FIREBASE_CLIENT_API_KEY;
+const GOOGLE_API_KEY = process.env.GOOGLE_CLIENT_API_KEY;
 const JWT_SECRET = process.env.JWT_SECRET;
 const APP_URL = process.env.APP_URL;
 
@@ -86,7 +86,7 @@ const register = async (request) => {
  * @param {Object} request - Body request (email, password)
  */
 const login = async (request) => {
-    const loginUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
+    const loginUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${GOOGLE_API_KEY}`;
 
     try {
         const response = await axios.post(loginUrl, {

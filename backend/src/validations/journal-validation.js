@@ -7,19 +7,21 @@ const createJournalValidation = Joi.object({
         'any.required': 'Judul wajib diisi',
         'string.empty': 'Judul tidak boleh kosong'
     }),
-    note: Joi.string().required().messages({
-        'string.base': 'Catatan harus berupa teks',
-        'any.required': 'Catatan (Note) wajib diisi',
-        'string.empty': 'Catatan tidak boleh kosong'
+
+    note: Joi.string().optional().allow('').messages({
+        'string.base': 'Catatan harus berupa teks'
     })
 });
 
 const updateJournalValidation = Joi.object({
-    title: Joi.string().max(255).required().messages({
+
+    title: Joi.string().max(255).optional().messages({
+        'string.base': 'Judul harus berupa teks',
+        'string.max': 'Judul maksimal 255 karakter',
         'string.empty': 'Judul tidak boleh kosong'
     }),
-    note: Joi.string().required().messages({
-        'string.empty': 'Catatan tidak boleh kosong'
+    note: Joi.string().optional().allow('').messages({
+        'string.base': 'Catatan harus berupa teks'
     })
 });
 

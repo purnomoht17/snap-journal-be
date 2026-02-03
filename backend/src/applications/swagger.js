@@ -19,7 +19,6 @@ const options = {
       { name: "Auth", description: "Endpoint Autentikasi Private" },
       { name: "User", description: "Manajemen User" },
       { name: "Journal", description: "Manajemen Journal" },
-      { name: "Cron Job (Testing)", description: "Endpoint Cron Manual" },
       { name: "Notification", description: "Manajemen Notifikasi" },
     ],
     

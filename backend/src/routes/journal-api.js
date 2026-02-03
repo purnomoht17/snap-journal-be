@@ -1,9 +1,9 @@
 import express from "express";
 import { authMiddleware } from "../middlewares/auth-middleware.js";
 import { verifiedMiddleware } from "../middlewares/verified-middleware.js";
-import { upload } from "../middlewares/upload-middleware.js";
 import { runValidation } from "../middlewares/validation-middleware.js";
-import { createJournalValidation, updateJournalValidation} from "../validations/journal-validation.js";
+import { createJournalValidation, updateJournalValidation } from "../validations/journal-validation.js";
+import { multipartMiddleware } from "../middlewares/multipart-middleware.js";
 import journalController from "../controllers/journal-controller.js";
 
 const journalRouter = new express.Router();
@@ -12,10 +12,7 @@ journalRouter.use(authMiddleware);
 journalRouter.use(verifiedMiddleware);
 
 journalRouter.post('/api/v1/journals', 
-    upload.fields([
-        { name: 'video', maxCount: 1 }, 
-        { name: 'photo', maxCount: 1 }
-    ]),
+    multipartMiddleware,
     runValidation(createJournalValidation),
     journalController.createJournal
 );
@@ -26,8 +23,8 @@ journalRouter.post('/api/v1/journals/enhance', journalController.enhanceText);
 journalRouter.get('/api/v1/journals/:id', journalController.getDetailJournal);
 
 journalRouter.put('/api/v1/journals/:id', 
+    multipartMiddleware,
     runValidation(updateJournalValidation),
-    upload.single('photo'), 
     journalController.updateJournal
 );
 
